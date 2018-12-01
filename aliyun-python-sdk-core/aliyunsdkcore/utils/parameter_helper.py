@@ -49,19 +49,9 @@ def md5_sum(content):
 
 def percent_encode(encodeStr):
     encodeStr = str(encodeStr)
-    if sys.stdin.encoding is None:
-        res = urllib.quote(encodeStr.decode('cp936').encode('utf8'), '')
-    else:
-        res = urllib.quote(
-            encodeStr.decode(
-                sys.stdin.encoding).encode('utf8'), '')
+    encoding = 'cp936' if sys.stdin.encoding is None else sys.stdin.encoding
+    res = urllib.quote(encodeStr.decode(encoding).encode('utf8'), '')
     res = res.replace('+', '%20')
     res = res.replace('*', '%2A')
     res = res.replace('%7E', '~')
     return res
-
-
-if __name__ == "__main__":
-    print get_uuid()
-    print get_iso_8061_date()
-    print get_rfc_2616_date()

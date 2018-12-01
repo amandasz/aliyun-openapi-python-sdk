@@ -48,6 +48,5 @@ __dict = dict(
     SDK_INVALID_CREDENTIAL="Need a ak&secret pair or public_key_id&private_key pair to auth.",
     SDK_INVALID_SESSION_EXPIRATION="Session expiration must between {} and {} seconds")
 
-
 def get_msg(code):
     return __dict.get(code)

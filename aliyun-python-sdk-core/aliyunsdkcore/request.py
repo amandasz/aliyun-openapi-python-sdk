@@ -55,7 +55,7 @@ def set_default_protocol_type(user_protocol_type):
         _default_protocol_type = user_protocol_type
     else:
         raise exceptions.ClientException(
-            error_code.SDK_INVALID_PARAMS, 
+            error_code.SDK_INVALID_PARAMS,
             "Invalid 'protocol_type', should be 'http' or 'https'"
         )
 
@@ -279,14 +279,14 @@ class RpcRequest(AcsRequest):
 
         return req_params
 
-    def get_url(self, region_id, ak, secret):
+    def get_url(self, region_id, access_key_id, access_key_secret):
         sign_params = self._get_sign_params()
         if 'RegionId' not in sign_params.keys():
             sign_params['RegionId'] = region_id
         url = rpc_signer.get_signed_url(
             sign_params,
-            ak,
-            secret,
+            access_key_id,
+            access_key_secret,
             self.get_accept_format(),
             self.get_method(),
             self.get_body_params(),
@@ -537,7 +537,7 @@ class CommonRequest(AcsRequest):
         self._action_name = action_name
         self._uri_pattern = uri_pattern
         self._product = product
-        self._location_endpoint_type = location_endpoint_type,
+        self._location_endpoint_type = location_endpoint_type
         self._signer = sha_hmac1
         self.add_header('x-sdk-invoke-type', 'common')
         self._path_params = None
@@ -617,8 +617,8 @@ class CommonRequest(AcsRequest):
     def get_url(self, region_id, ak, secret):
         return self.request.get_url(region_id, ak, secret)
 
-    def get_signed_header(self, region_id, ak, secret):
-        return self.request.get_signed_header(region_id, ak, secret)
+    def get_signed_header(self, region_id, access_key_id, access_key_secret):
+        return self.request.get_signed_header(region_id, access_key_id, access_key_secret)
 
     def fill_params(self):
 

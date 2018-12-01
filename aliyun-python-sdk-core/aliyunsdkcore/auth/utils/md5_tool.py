@@ -28,12 +28,7 @@ Created on 9/28/2015
 import hashlib
 import base64
 
-
-def _get_md5(content):
+def get_md5_base64_str(content):
     m = hashlib.md5()
     m.update(buffer(content))
-    return m.digest()
-
-
-def get_md5_base64_str(content):
-    return base64.encodestring(_get_md5(content)).strip()
+    return base64.encodestring(m.digest()).strip()
