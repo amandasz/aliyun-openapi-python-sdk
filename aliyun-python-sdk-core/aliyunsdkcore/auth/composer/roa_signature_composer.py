@@ -106,12 +106,8 @@ def build_canonical_headers(headers, header_begin):
     return result
 
 
-def split_sub_resource(uri):
-    return uri.split("?")
-
-
 def __build_query_string(uri, queries):
-    uri_parts = split_sub_resource(uri)
+    uri_parts = uri.split("?")
     if len(uri_parts) > 1 and uri_parts[1] is not None:
         queries[uri_parts[1]] = None
     query_builder = uri_parts[0]
